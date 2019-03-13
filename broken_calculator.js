@@ -6,5 +6,17 @@
  * @return {number}
  */
 var brokenCalc = function(X, Y) {
-    
+    var count = 0;
+    var newY = Y;
+    while(newY > X) {
+        if(newY % 2 === 1) {
+            newY++;
+        } else {
+            newY /= 2
+        }
+        count++
+    }
+    return count + (X - newY);
 };
+
+console.log(brokenCalc(1, 1000000000))
