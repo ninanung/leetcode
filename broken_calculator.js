@@ -18,5 +18,3 @@ var brokenCalc = function(X, Y) {
     }
     return count + (X - newY);
 };
-
-console.log(brokenCalc(1, 1000000000))
