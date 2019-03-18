@@ -12,31 +12,42 @@
  * @param {ListNode} l2
  * @return {ListNode}
  */
-var addTwoNumbers = function(l1, l2) {
-    const result = [];
-    let standard = [];
-    if(l1.length < l2.length) {
-        standard = l2.slice();
-    } else {
-        standard = l1.slice();
+var createNewNode = function() {
+    return {
+        val: 0,
+        next: null,
     }
-    let plus = 0;
-    for(let i = 0; i < standard.length; i++) {
-        if(l1[i] && l2[i]) {
-            if((l1[i] + l2[i] + plus) >= 10) {
-                result.push((l1[i] + l2[i] + plus) % 10)
-                plus = 1;
+};
+
+var addTwoNumbers = function(l1, l2) {
+    let l1node = l1;
+    let l2node = l2;
+    let newListNode = createNewNode();
+    let newNode = newListNode;
+    while(l1node || l2node) {
+        if(newListNode.next && newNode.next)  
+        if(l1node && l2node) {
+            if(l1node.val + l2node.val + newNode.val >= 10) {
+                newNode.val = newNode.val + l1node.val + l2node.val - 10
+                newNode.next = createNewNode();
+                newNode.next.val = 1;
             } else {
-                result.push(l1[i] + l2[i] + plus)
-                plus = 0;
+                newNode.val = newNode.val + l1node.val + l2node.val
             }
         } else {
-            result.push(standard[i] + plus);
-            plus = 0;
+            if(l1node) {
+                if(l1node.val + newNode.val >= 10) {
+                    newNode.val = newNode.val + l1node.val - 10
+                    newNode.next = createNewNode();
+                    newNode.next.val = 1;
+                } else newNode.val = newNode.val + l1node.val;
+            } else if(l2node) {
+                if(l2node.val + newNode.val >= 10) {
+                    newNode.val = newNode.val + l2node.val - 10
+                    newNode.next = createNewNode();
+                    newNode.next.val = 1;
+                } else newNode.val = newNode.val + l2node.val;
+            }
         }
     }
-    if(plus) {
-        result.push(plus);
-    }
-    return result;
 };
