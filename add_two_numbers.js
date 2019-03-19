@@ -14,7 +14,7 @@
  */
 var createNewNode = function() {
     return {
-        val: 0,
+        val: null,
         next: null,
     }
 };
@@ -25,7 +25,13 @@ var addTwoNumbers = function(l1, l2) {
     let newListNode = createNewNode();
     let newNode = newListNode;
     while(l1node || l2node) {
-        if(newListNode.next && newNode.next)  
+        if(newListNode.val !== null || newListNode.next) {
+            if(newNode.next) newNode = newNode.next;
+            else {
+                newNode.next = createNewNode();
+                newNode = newNode.next;
+            }
+        }
         if(l1node && l2node) {
             if(l1node.val + l2node.val + newNode.val >= 10) {
                 newNode.val = newNode.val + l1node.val + l2node.val - 10
@@ -49,5 +55,8 @@ var addTwoNumbers = function(l1, l2) {
                 } else newNode.val = newNode.val + l2node.val;
             }
         }
+        if(l1node) l1node = l1node.next;
+        if(l2node) l2node = l2node.next;
     }
+    return newListNode;
 };
