@@ -33,4 +33,34 @@ a  a  b  c  e  c  d  a
 
 ### Longest Common Substring
 
-이걸 알고리즘이라고 하기는 뭐하지만, 일단 적어본다. 사용될만한 부분을 생각해 보자면, 검색기능을 구현할 때 substring이 가장 많은 결과를 보여주는 방식으로 쓸 수도 있을 것 같다.
+이걸 알고리즘이라고 하기는 뭐하지만, 일단 적어본다. 사용될만한 부분을 생각해 보자면, 검색기능을 구현할 때 substring이 가장 많은 결과를 보여주는 방식으로 쓸 수도 있을 것 같다. 주된 목적은 두개의 문자열이 가지고 있는 가장 긴 동일 부분 문자열을 찾는 것이다. 두개의 문자열을 탐색하기 때문에 기본적으로 시간복잡도는 두 문자열의 길이의 곱인 O(n x m)이다. 기본적인 방법은 두번의 for문을 이용해서 모든 문자열을 탐색하며, 동일한 문자일 경우 임의의 이중배열에 숫자를 표기하여 이전자리에 해당하는 이중배열의 숫자가 0이 아닐경우 +1을 해가면서 결국 가장 숫자가 높은 자리까지의 부분 문자열이 가장 긴 동일 문자열이 되는 것이다. 말로 설명하는 것 보다는 코드를 확인하면 좋은데 간단히는 이러하다.
+```javascript
+function longestCommonSubstring = (s, n) {
+    let substring = '';
+    let max = 0;
+    let table = makeTable(s, n); //문자열 s와 n을 이용해서 임의의 이중배열을 만드는 가상의 함수
+    for(let i = 0; i < s.length; i++) {
+        for(let j = 0; j < n.length; j++) {
+            if(s[i] === n[j]) {
+                if(i === 0 || j === 0) {
+                    table[i][j] = 1;
+                    if(max === 0) {
+                        substring = s[i]
+                    }
+                } else {
+                    table[i][j] = table[i - 1][j - 1] + 1;
+                    const sliced = s.slice(i + 1 - table[i][j], i + 1)
+                    if(sliced === maken(sliced) && sliced) {
+                        if(sliced.length > max) {
+                            substring = sliced
+                            max = substring.length
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return substring;
+}
+```
+문제는 내가 이 방법을 이용해서 [longest-palindromic-substring](https://leetcode.com/problems/longest-palindromic-substring/)문제를 풀려고 했다는 것인데, 특정 문자열과 그 문자열의 반대순서의 같은 부분을 찾으면 풀 수 있겠다는 생각 까지는 좋았으나, 결과로 나온 부분 문자열이 꼭 좌우대칭이라는 보장이 없어서 망했다. 결국 다른 방법을 사용해야 했는데 그건 이 밑에서 설명한다.
