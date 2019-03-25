@@ -4,8 +4,7 @@
  * @param {string} s
  * @return {string}
  */
-// https://leetcode.com/problems/longest-palindromic-substring/
-var makeReverse = function(s) {
+/*var makeReverse = function(s) {
     let reverse = '';
     for(let i = s.length-1; i >= 0; i--) {
         reverse += s[i];
@@ -26,8 +25,8 @@ var makeTable = function(s) {
 }
 
 var longestPalindrome = function(s) {
-    let max = 0;
     let substring = '';
+    let max = 0;
     const reverse = makeReverse(s);
     const length = s.length;
     let table = makeTable(s);
@@ -36,15 +35,25 @@ var longestPalindrome = function(s) {
             if(s[i] === reverse[j]) {
                 if(i === 0 || j === 0) {
                     table[i][j] = 1;
+                    if(max === 0) {
+                        substring = s[i]
+                    }
                 } else {
-                    table[i][j] = table[i - 1][j - 1] + 1
-                }
-                if(table[i][j] > max) {
-                    substring = s.slice(i - max, i + 1)
-                    max = table[i][j];
+                    table[i][j] = table[i - 1][j - 1] + 1;
+                    const sliced = s.slice(i + 1 - table[i][j], i + 1)
+                    if(sliced === makeReverse(sliced) && sliced) {
+                        if(sliced.length > max) {
+                            substring = sliced
+                            max = substring.length
+                        }
+                    }
                 }
             }
         }
     }
     return substring;
-};
+};*/
+
+var longestPalindrome = function(s) {
+
+}
