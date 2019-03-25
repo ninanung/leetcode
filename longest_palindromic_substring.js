@@ -55,5 +55,29 @@ var longestPalindrome = function(s) {
 };*/
 
 var longestPalindrome = function(s) {
-
+    let substring = '';
+    let max = 0;
+    for(let i = 0; i < s.length; i++) {
+        let left = i;
+        let right = i;
+        while(left >= 0 && right < s.length) {
+            let changed = false;
+            if(left === i && s[right + 1] === s[i]) {
+                right++;
+                changed = true;
+            }
+            if(s[left - 1] && s[right + 1] && s[left - 1] === s[right + 1]) {
+                left--;
+                right++;
+                changed = true;
+            }
+            if(!changed) break;
+        }
+        const sliced = s.slice(left, right + 1);
+        if(sliced.length > max) {
+            max = right - left + 1;
+            substring = sliced;
+        }
+    }
+    return substring;
 }

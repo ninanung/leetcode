@@ -46,15 +46,14 @@ function longestCommonSubstring = (s, n) {
                     table[i][j] = 1;
                     if(max === 0) {
                         substring = s[i]
+                        max = 1;
                     }
                 } else {
                     table[i][j] = table[i - 1][j - 1] + 1;
                     const sliced = s.slice(i + 1 - table[i][j], i + 1)
-                    if(sliced === maken(sliced) && sliced) {
-                        if(sliced.length > max) {
-                            substring = sliced
-                            max = substring.length
-                        }
+                    if(sliced.length > max) {
+                        substring = sliced
+                        max = substring.length
                     }
                 }
             }
@@ -63,4 +62,4 @@ function longestCommonSubstring = (s, n) {
     return substring;
 }
 ```
-문제는 내가 이 방법을 이용해서 [longest-palindromic-substring](https://leetcode.com/problems/longest-palindromic-substring/)문제를 풀려고 했다는 것인데, 특정 문자열과 그 문자열의 반대순서의 같은 부분을 찾으면 풀 수 있겠다는 생각 까지는 좋았으나, 결과로 나온 부분 문자열이 꼭 좌우대칭이라는 보장이 없어서 망했다. 결국 다른 방법을 사용해야 했는데 그건 이 밑에서 설명한다.
+문제는 내가 이 방법을 이용해서 [longest-palindromic-substring](https://leetcode.com/problems/longest-palindromic-substring/)문제를 풀려고 했다는 것인데, 특정 문자열과 그 문자열의 반대순서의 부분 문자열은 좌우대칭일 가능성이 높다는 생각 까지는 좋았으나, 결과로 나온 부분 문자열이 꼭 좌우대칭이라는 보장이 없기때문에 좌우대칭인지 아닌지를 판단하는 코드가 들어가면 시간이 더 늘어나는 바람에 망했다.
