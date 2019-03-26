@@ -3,6 +3,7 @@
 ## 목차
 - [Sliding Window](#sliding-window)
 - [Longest Common Substring](#longest-common-substring)
+- [Two Pointer Technique](#two-pointer-technique)
 
 ### 알고리즘 정리
 
@@ -67,3 +68,37 @@ function longestCommonSubstring = (s, n) {
 }
 ```
 문제는 내가 이 방법을 이용해서 [longest-palindromic-substring](https://leetcode.com/problems/longest-palindromic-substring/)문제를 풀려고 했다는 것인데, 특정 문자열과 그 문자열의 반대순서의 부분 문자열은 좌우대칭일 가능성이 높다는 생각 까지는 좋았으나, 결과로 나온 부분 문자열이 꼭 좌우대칭이라는 보장이 없기때문에 좌우대칭인지 아닌지를 판단하는 코드가 들어가면 시간이 더 늘어나는 바람에 망했다.
+
+### Two Pointer Technique
+
+오름차순으로 정렬된 배열 y가 있을 때, 해당 배열에서 두개의 요소를 뽑아 합하면 특정 값 x가 된다고 할때, 요소 두개를 어떻게 구할까? 라는 문제에 대한 해답이 되는 알고리즘이다. 가장 간단하게 생각나는 방법은 당연히 무차별 대입방법으로, 하나의 요소에 대한 다른 요소의 합을 전부 구해봐야 하기 때문에 두번의 루프를 돌리려서 시간복잡도는 O(n<sup>2</sup>)이 된다. 하지만 이 방법을 사용하면 배열의 양쪽 끝에서 시작하여 중심으로 점점 움직이며 탐색하므로 한번의 루프면 된다. 예를 들자면,
+```
+y = [10, 20, 30, 40, 60, 70]
+x = 60
+
+left = 0, right = 5, y[left] + y[right] = 80
+left = 0, right = 4, y[left] + y[right] = 70
+left = 0, right = 3, y[left] + y[right] = 50
+left = 1, right = 3, y[left] + y[right] = 60
+```
+이러한 방식으로 움직이게 된다. 두 요소의 합이 x보다 크면 right를 줄이고 작으면 left를 늘리면서 적절한 값을 찾는다.  
+  
+[container-with-most-water](https://leetcode.com/problems/container-with-most-water/)문제를 위해 위와 비슷한 방식을 사용했다. 처음에는 Sliding Window방식으로 탐색하면 되지 않을까 잠깐 생각했으나 여러개의 요소가 아니라 두개의 요소를 뽑아서 비교하는 방식이기 때문에 맞을 것 같지 않아서 결국 이 방법을 찾았다.
+```javascript
+var maxArea = function(height) {
+    let left = 0;
+    let right = height.length -1;
+    let max = 0;
+    while(right - left > 0) {
+        if(height[left] < height[right]) {
+            max = (right - left) *  height[left] > max ? (right - left) *  height[left] : max
+            left++;
+        } else {
+            max = (right - left) *  height[right] > max ? (right - left) *  height[right] : max
+            right--;
+        }
+    }
+    return max;
+};
+```
+코드는 이러한데, 물을 가두기 위한 기둥의 높이가 더 낮은 쪽의 포인트를 옮겨야 한다. 이유는, 높은쪽을 옮기는 것 보다는 낮은쪽을 옮여야 커질 가능성이 생긴다는 것이다. 높은쪽을 옮겨봐야 거리가 좁혀지기 때문에 물의 양이 작아질 수밖에 없지만 낮은쪽을 옮기면 더 커질 가능성이 생긴다는 원리. 나는 이걸 머릿속으로는 이해했지만 설명하라고 하면 어떻게 설명해야 할지 모르겠다.
