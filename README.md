@@ -4,7 +4,7 @@
 - [Sliding Window](#sliding-window)
 - [Longest Common Substring](#longest-common-substring)
 - [Two Pointer Technique](#two-pointer-technique)
-- [Horizontal & Vertical Scanning][#horizontal-&-vertical-scanning]
+- [Horizontal and Vertical Scanning][#horizontal-and-vertical-scanning]
 
 ### 알고리즘 정리
 
@@ -107,7 +107,7 @@ var maxArea = function(height) {
 코드는 이러한데, 물을 가두기 위한 기둥의 높이가 더 낮은 쪽의 포인트를 옮겨야 한다. 이유는, 높은쪽을 옮기는 것 보다는 낮은쪽을 옮여야 커질 가능성이 생긴다는 것이다. 높은쪽을 옮겨봐야 거리가 좁혀지기 때문에 물의 양이 작아질 수밖에 없지만 낮은쪽을 옮기면 더 커질 가능성이 생긴다는 원리. 나는 이걸 머릿속으로는 이해했지만 설명하라고 하면 어떻게 설명해야 할지 모르겠다. 이 문제의 시간복잡도는, 위에서 설명한 것과 같다.
 > 시간복잡도 : O(n)
 
-### Horizontal & Vertical Scanning
+### Horizontal and Vertical Scanning
 
 이 알고리즘은 보안과 관련된 영역에서 IP와 Port에 대한 탐색을 할때도 사용되는 모양이다. horizomtal의 경우에는 하나의 Port에 대한 여러개의 IP를, vertical의 경우에는 하나의 IP에 대한 여러개의 Port를 탐색하는 방식이라고 한다. 이는 다중배열과 유사한 구조라면 어디에도 적용하여 사용될 수 있는 것으로 보인다. [Longest Common Predix](https://leetcode.com/problems/longest-common-prefix/submissions/)의 문제를 푸는데 사용하였다.
 ```
