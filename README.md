@@ -4,7 +4,7 @@
 - [Sliding Window](#sliding-window)
 - [Longest Common Substring](#longest-common-substring)
 - [Two Pointer Technique](#two-pointer-technique)
-- [Horizontal and Vertical Scanning][#horizontal-and-vertical-scanning]
+- [Horizontal and Vertical Scanning](#horizontal-and-vertical-scanning)
 
 ### 알고리즘 정리
 
