@@ -5,6 +5,8 @@
 - [Longest Common Substring](#longest-common-substring)
 - [Two Pointer Technique](#two-pointer-technique)
 - [Horizontal and Vertical Scanning](#horizontal-and-vertical-scanning)
+- [Backtracking](#backtracking)
+- [Depth and Breath First Search](#depth-and-breath-first-search)
 
 ### 알고리즘 정리
 
@@ -115,3 +117,12 @@ Array x = ["string", "start], "star"]이 있을 때 요소들의 공통적인 �
 ```
 라는 문제가 있다면, 딱 보기에도 정답은 "st"이지만 어떻게 탐색할지가 문제가 된다. 여기에서 두가지 탐색 방식을 사용할 수 있다. horizontal은 문자열들을 수평적으로 비교하여, 처음 두개를 비교하여 나온 prefix로 다음 문자열과 비교하고, 그렇게 나온 predix로 또 다음문자열과 비교하는 방식으로 수평적인 이동을 통해 탐색한다. vertical방식은 첫번째 문자열을 기준으로 모든 문자열에 대한 첫번째 글자부터 비교해가는 방식이다. 모든 문자열의 첫번째 -> 두번째 -> 세번째 문자를 비교하기 때문에 수평이 아닌 수직적으로 놓고 비교한다. 시간복잡도는 O(S)인데 여기서 S는 배열의 모든 문자열들의 문자수를 전부 합한 것이다.
 > 시간복잡도 : O(S)
+
+### Backtracking
+
+[BFS와 DFS알고리즘](#depth-and-breath-first-search)을 모른다면 먼저 확인한 후에 이 알고리즘을 보는게 순서상 맞을 것 같다. [letter-combinations-of-a-phone-number](https://leetcode.com/problems/letter-combinations-of-a-phone-number/)문제를 풀기위해 사용하였으나, 엄밀히 말하자면 해당 문제는 이 알고리즘에 어울린다고 말할 수 없다. backtracking 알고리즘은 트리를 탐색할 때 특정 가지가 탐색할 가치가 없다(조건에 맞지 않음)라고 판단되면, 뒤로 돌아가서 다른 가지를 탐색함으로써 시간낭비를 줄일 수 있다. 그런데 해당 문제는 어쨌든 모든 트리를 탐색하여 결과를 반환해야 하기 때문에 단순한 트리 탐색 방식을 사용해도 무방해 보인다. 어찌됐든, 재귀(recursive)방식을 사용하여 트리를 탐색하는 것이 기본이 되며, 조건에 맞는 노드가 있을 경우 스택에 넣었다가 조건이 맞지 않으면 빼어가며 진행하게 된다.  
+코드는 따로 올리지 않을 것이고 궁금하면 찾아보자. 하지만 시간복잡도에 대한 얘기는 해야 할 것 같은데, 전화번호에 해당하는 글자들의 수를 기준으로 시간복잡도는 O(3<sup>n</sup> x 4<sup>m</sup>)이 된다. 여기서 `n`은 3개의 알파벳을 가지는 전화번호의 수이며 `m`은 4개의 알파벳을 가지는 전화번호의 수이다. backtracking 알고리즘의 경우에도 최악의 경우에는 모든 트리를 탐색해야 하므로 몇개의 가지를 탐색하느냐에 따라 시간복잡도는 제곱만큼 늘어나는 경우가 많다.
+> 시간복잡도 : 인용한 문제의 경우 O(3<sup>n</sup> x 4<sup>m</sup>)
+
+### Depth and Breath First Search
+
