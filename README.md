@@ -9,6 +9,7 @@
 - [Depth and Breath First Search](#depth-and-breath-first-search)
 - [Binary Search](#binary-search)
 - [Dynamic Programming](#dynamic-programming)
+- [Binary Tree Traversal](#binary-tree-traversal)
 
 ### 알고리즘 정리
 
@@ -200,3 +201,27 @@ function recursive(x) {
 }
 ```
 복잡해 보이지만 사실 간단하다. 그냥 결과값을 배열 `array`에 저장하도록 했고 만약 특정 위치에 있는 값을 이미 구한적이 있다면 새로 구하는 대신에 배열에서 값을 가져다가 쓰도록 변경했다. 이렇게 하면 이미 구한 값을 또 구할 필요가 없어지기 때문에 시간복잡도도 O(2<sup>n</sup>)이 아닌 O(n)이 된다. 어렵게 설명한 것 같지만, 동적 프로그래밍에서는 한가지만 기억하면 된다. "한번 구한 값은 또 구하지 않는다." 이것이 핵심 내용이라고 할 수 있다.
+
+### Binary Tree Traversal
+
+이진트리 순회알고리즘에 대한 얘기를 해보고자 한다. 흔히들 얘기하는 pre-order, in-order, post-order가 여기에 속하는데 우리말로는 전위, 중위, 후위 순회라고 부른다. 쉽게 말하면 "해당 node의 값을 언제 읽을것인가?"에 대한 규칙이다. 이름 그대로 먼저, 중간에, 나중에 읽는 방식이다. 이해하기 쉬운만큼 알고리즘으로 구현하기도 쉬운데, 몇가지 방법들 중 가장 대표적인 재귀적 탐색으로 설명하겠다.
+```javascript
+// root는 트리에서 가장 위에 있는 node를 기리키고 있다.
+/* root = {
+    val: value,
+    left: null,
+    right: null
+}*/
+// result는 순회한 node의 val을 저장해서 순회 순서를 알 수 있는 결과값이다.
+function order(root, result=[]) {
+    if(root === null) return []; // 방문한 node가 null이면 빈 배열을 리턴한다. root가 처음부터 null일 경우 필요하지만 빈 배열에 큰 의미는 없다.
+    result.push(root.val); // pre-order의 경우 여기에서 노드의 값을 읽는다.
+    order(root.left, result);
+    result.push(root.val); // in-order의 경우 여기에서 노드의 값을 읽는다.
+    order(root.right, result);
+    result.push(root.val); // post-order의 경우 여기에서 노드의 값을 읽는다.
+    return result;
+}
+```
+딱 보면 알겠지만 코드 자체부터가 아주 짧고 간단하다. 그냥 왼쪽 오른쪽 노드에 대해서 재귀적으로 함수를 호출해주면 된다. 값을 언제 읽는지에 따라서 값을 읽는 코드를 위치시키기만 하면 된다. 이 알고리즘의 경우 탐색이 아닌 순회이기 때문에 기본적으로 모든 노드를 방문하는 걸 목적으로 한다. 따라서 어떤 알고리즘을 쓰던지(재귀적인 방법 말고 스택을 쓰는 방법도 있다.) 모든 n개의 노드를 확인해야 하므로 시간복잡도는 O(n)이다.
+>  시간복잡도 : O(n)
