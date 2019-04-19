@@ -10,6 +10,7 @@
 - [Binary Search](#binary-search)
 - [Dynamic Programming](#dynamic-programming)
 - [Binary Tree Traversal](#binary-tree-traversal)
+- [Level Order Traversal](#level-order-traversal)
 
 ### 알고리즘 정리
 
@@ -225,3 +226,26 @@ function order(root, result=[]) {
 ```
 딱 보면 알겠지만 코드 자체부터가 아주 짧고 간단하다. 그냥 왼쪽 오른쪽 노드에 대해서 재귀적으로 함수를 호출해주면 된다. 값을 언제 읽는지에 따라서 값을 읽는 코드를 위치시키기만 하면 된다. 이 알고리즘의 경우 탐색이 아닌 순회이기 때문에 기본적으로 모든 노드를 방문하는 걸 목적으로 한다. 따라서 어떤 알고리즘을 쓰던지(재귀적인 방법 말고 스택을 쓰는 방법도 있다.) 모든 n개의 노드를 확인해야 하므로 시간복잡도는 O(n)이다.
 >  시간복잡도 : O(n)
+
+### Level Order Traversal
+
+한국어로 딱히 불리는 단어는 없고 그냥 레벨순회라고 불리는 모양이다. 원래는 위에서 2진트리 순회를 설명할때 같이 했어야 하지만 조금 방식이 다르므로 따로 설명한다. 사실 새로울 것은 없다. [BFS와 DFS알고리즘](#depth-and-breath-first-search)에서 설명한 BFS즉 넓이우선 탐색과 같은 방식이기 때문이다. 그렇다 레벨순회는 층에서 층으로 순회하는 방식을 말한다. 레벨이라는 것은 층을 말하는 것이다. 인터넷을 좀 찾아봤는데 BFS와 레벨순회의 차이를 명확하게 설명한 경우가 없었다. 일단 같은 방식이라고 생각하는게 맞는 것 같다. 코드를 보자
+```javascript
+var levelOrder = function(root) {
+    const queue = [];
+    const result = [];
+    queue.push(root);
+    while(queue.length > 0) {
+        const length = queue.length;
+        for(let count = 0; count < length; count++) {
+            const node = queue.shift();
+            result.push(node.val);
+            if(node.left) queue.push(node.left);
+            if(node.right) queue.push(node.right);
+        }
+    }
+    return result;
+};
+```
+해당 코드는 노드들을 순회하면서 value값을 배열`result`에 순서대로 저장해서 어떤 순서로 순회하는지 보여주는 코드이다. 딱 봐도 다른 이진트리 순회들이 재귀적인 방식을 사용하는 것에 비해 queue와 `while`을 써서 층층이 방문하는 것을 알 수 있다. 왜 큐를 사용하느냐? 그건 BFS에서 설명했으니 그 글을 참고해 보자. 레벨순회로 말할 것 같으면 시간복잡도는 당연히 O(n)이다. 방식은 다르지만 모든 노드를 방문한다는 사실은 같기 때문이다.
+> 시간복잡도 : O(n)
