@@ -2,7 +2,7 @@
  * @param {string} s
  * @return {string[][]}
  */
-var partition = function(s) {
+/*var partition = function(s) {
     function popArray(string, begin, result) {
         for(let i = begin; i < string.length; i++) {
             let start = i;
@@ -28,6 +28,34 @@ var partition = function(s) {
     const baseArray = s.split('');
     result.push(baseArray);
     popArray(baseArray, 0, result)
+    return result
+};*/
+
+var partition = function(s) {
+    const popArray = (str, startIndex, partition, result) => {
+        // sanity check
+        if (startIndex === str.length) {
+            result.push(partition.slice());
+            return;
+        }
+        // core logic
+        for (let i = startIndex; i < str.length; i++) {
+            let subStr = str.slice(startIndex, i + 1);
+            if (!checkPalin(subStr)) {
+                continue;
+            }
+
+            partition.push(subStr);
+            popArray(str, i + 1, partition, result);
+            partition.pop();
+        }
+    }
+    
+    if(s.length === 0) return [];
+    if(s.length === 1) return [[s]];
+    
+    const result = [];
+    popArray(s, 0, [], result)
     return result
 };
 
