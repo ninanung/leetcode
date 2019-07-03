@@ -3,8 +3,8 @@
  * @return {string[][]}
  */
 var partition = function(s) {
-    function popArray(string, stack, result) {
-        for(let i = 0; i < string.length; i++) {
+    function popArray(string, begin, result) {
+        for(let i = begin; i < string.length; i++) {
             let start = i;
             let end = i + 2;
             while(end <= string.length) {
@@ -12,8 +12,9 @@ var partition = function(s) {
                     const newArray = string.slice();
                     const joined = newArray.splice(start, end - start).join('');
                     newArray.splice(start, 0, joined);
-                    stack.push(newArray);
                     result.push(newArray);
+                    popArray(newArray, start, result)
+                    end = string.length + 1;
                 }
                 end++;
             }
@@ -24,17 +25,10 @@ var partition = function(s) {
     if(s.length === 1) return [[s]];
     
     const result = [];
-    const stack = [];
     const baseArray = s.split('');
     result.push(baseArray);
-    stack.push(baseArray);
-    while(stack.length > 0) {
-        console.log(stack)
-        const stackString = stack[0];
-        stack.splice(0, 1);
-        popArray(stackString, stack, result);
-    }
-    return result;
+    popArray(baseArray, 0, result)
+    return result
 };
 
 var checkPalin = function(s) {
