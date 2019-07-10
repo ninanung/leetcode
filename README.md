@@ -12,6 +12,7 @@
 - [Binary Tree Traversal](#binary-tree-traversal)
 - [Level Order Traversal](#level-order-traversal)
 - [AVL Binary Tree](#avl-binary-tree)
+- [Divide And Conquer](#divide-and-conquer)
 
 ### 알고리즘 정리
 
@@ -263,3 +264,12 @@ var levelOrder = function(root) {
   
 AVL트리에는 한가지 더 재미있는 특성이 있는데, 값을 넣거나 뺄때 `rotation`을 사용한다는 것이다. 쉽게 말해서 회전하면서 트리를 구현한다는 말이다. 이 부분에 대해서도 설명을 하고는 싶으나 너무 길어질 것 같아서 따로 gist를 작성할 생각이다. [링크](https://gist.github.com/ninanung/57d9d936b891efc03783063750a21654)
 > 탐색 시간복잡도 : O(log n)
+
+### Divide And Conquer
+
+분할정복 알고리즘이라고도 부른다. 폰 노이만의 Merge Sort알고리즘과 비슷하다고 볼 수 있다. 사실 이름이 모든걸 설명하는 정직한 알고리즘이다. 만약 오름차순으로 정렬된 배열들의 배열, 즉 이중배열이 있다고 생각해 보자. 그리고 그 배열들을 역시나 오름차순으로 병합해야 한다고 생각해 보자. 가장 먼저 떠오르는 방법은 loop를 통해 하나씩 sorting하고 병합하는 것이다. 허나 하나씩 병합할 때 마다 읽어야 하는 요소들이 길어지기 때문에 시간복잡도가 말도 안되게 늘어난다. 이러한 상황에서 사용할 수 있는 것이 바로 분할정복 알고리즘이다.
+
+우선 예를 보도록 하자.
+![분할정벅](https://leetcode.com/problems/merge-k-sorted-lists/Figures/23/23_divide_and_conquer_new.png)
+  
+하나의 큰 배열을 두개의 배열씩 병합하고, 병합된 배열을 다시 병합하는 방식으로 진행되고 있다. 이렇게 하면 순서대로 하나씩 병합하는 동작에 비해 이미 읽었던 요소들을 다시 읽는 수를 확실하게 줄일 수 있다. 나는 해당 알고리즘이 사용된 문제에서 새로 병합된 배열을 queue에 넣는 방식을 사용했다. 그렇게 하면 순서대로 분할하여 병합하는 것이 가능해진다. 참고해도 좋을 것 같다.
