@@ -3,12 +3,18 @@
  * @return {number}
  */
 var trap = function(height) {
-    function recursive() {
-        
+    let left = left_max = right_max = result = 0;
+    let right = height.length - 1;
+    while(left < right) {
+        if(height[left] < height[right]) {
+            if(height[left] >= left_max) left_max = height[left];
+            else result += left_max - height[left];
+            left++;
+        } else if(height[left] >= height[right]) {
+            if(height[right] >= right_max) right_max = height[right];
+            else result += right_max - height[right];
+            right--;
+        }
     }
-    
-    if(height.length < 3) return 0;
-    const stack = [];
-    stack.push(height[0]);
-    
+    return result;
 };
